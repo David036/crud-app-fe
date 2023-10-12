@@ -22,13 +22,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div className={styles.loginContainer}>
-      <h1>Login</h1>
-      <p>Email</p>
-      <input onChange={(e) => setEmail(e.target.value)} type="string" />
-      <p>Password</p>
-      <input onChange={(e) => setPassword(e.target.value)} type="password" />
-      <button onClick={handleLogin}>Login</button>
+    <div className={styles.loginSection}>
+      <div className={styles.loginContainer}>
+        <h1>Login</h1>
+        <p>Email</p>
+        <input onChange={(e) => setEmail(e.target.value)} type="string" />
+        <p>Password</p>
+        <input onChange={(e) => setPassword(e.target.value)} type="password" />
+        <button className={styles.loginBtn} onClick={handleLogin}>
+          Login
+        </button>
+      </div>
     </div>
   );
 }

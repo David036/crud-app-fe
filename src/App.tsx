@@ -1,12 +1,12 @@
 import Home from "./components/home";
-
-import "./App.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import LoginPage from "./components/login";
 import SignupPage from "./components/signup";
 import { useEffect, useState } from "react";
 import { AuthContext } from "./context/auth/context";
 import { getCurrentUser } from "./services/authService";
+
+import "../src/styles/global.scss";
 
 function App() {
   const [isAuth, setIsAuth] = useState<boolean>(false);
