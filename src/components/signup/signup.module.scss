@@ -2,4 +2,29 @@
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+    color: #fff;
+}
+
+.signupContainer h1 {
+    font-size: 7em;
+    color: #864f6c;
+}
+
+.signupContainer button {
+    background-color: #864f6c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.signupContainer button:hover {
+    background-color: #83305c;
+}
+
+::selection {
+    background-color: #FBE4D8;
+    color: #864f6c;
 }

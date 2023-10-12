@@ -1,0 +1,44 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Noto Serif', serif;
+    background-color: #190019;
+}
+
+.loginContainer {
+    background-color: #190019;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    color: #fff;
+}
+
+.loginContainer h1 {
+    font-size: 7em;
+    color: #864f6c;
+}
+
+.loginContainer button {
+    background-color: #864f6c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.loginContainer h1 {
+    color:  #864f6c;
+}
+
+.loginContainer button {
+    background-color:  #864f6c;
+}
+
+.loginContainer button:hover {
+    background-color:  #83305c;
+}
