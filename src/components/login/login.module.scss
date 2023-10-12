@@ -27,8 +27,29 @@
       transition: background-color 0.3s;
 
       &:hover {
-        background-color: var(--purple_200);
+        background-color: var(--white_900);
+        color: var(--purple_100);
       }
+    }
+
+    .signupBtn {
+        background-color: var(--white_900);
+        color: var(--purple_100);
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: var(--purple_100);
+          color: var(--white_900);
+        }
+      }
+
+    ::selection {
+        background-color: var(--white_900);
+        color: var(--purple_100);
     }
   }
 }
