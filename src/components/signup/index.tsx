@@ -24,7 +24,8 @@ export default function SignupPage() {
   };
 
   return (
-    <div className={styles.signupContainer}>
+    <div className={styles.signupSection}>
+      <div className={styles.signupContainer}>
       <h1>Sign up</h1>
       <p>Email</p>
       <input
@@ -42,8 +43,10 @@ export default function SignupPage() {
       />
       <p>Repeat password</p>
       <input type="password" />
-      <button onClick={handleSignup}>Sign up</button>
-      <button onClick={() => navigate("/login")}>Login page</button>
+      <button className={styles.signupBtn} onClick={handleSignup}>
+        Sign up
+      </button>
     </div>
+  </div>
   );
 }
