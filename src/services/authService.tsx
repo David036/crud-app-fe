@@ -9,7 +9,7 @@ export const signup = async (email: string, password: string) => {
       email,
       password,
     };
-    await axiosInstance.post(`${url}signup`, requestBody);
+    return await axiosInstance.post(`${url}signup`, requestBody);
   } catch (error) {
     console.error("Error:", error);
   }
