@@ -1,24 +1,24 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./login.module.scss";
 import { login } from "../../services/authService";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/auth/context";
 
 export default function LoginPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [username, setUsername] = useState("");
+
+  const { setIsAuth } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     const isLoggedIn = await login(email, password);
     if (isLoggedIn?.data.token) {
       localStorage.setItem("accessToken", isLoggedIn?.data.token);
+      navigate("/");
+      setIsAuth(true);
     }
-    if (isLoggedIn) {
-      setUsername(isLoggedIn?.data.userData.user.email);
-    }
-  };
-
-  const handleLogout = () => {
-    setUsername("");
   };
 
   return (
@@ -29,8 +29,6 @@ export default function LoginPage() {
       <p>Password</p>
       <input onChange={(e) => setPassword(e.target.value)} type="password" />
       <button onClick={handleLogin}>Login</button>
-      <button onClick={handleLogout}>Logout</button>
-      <p>Username : {username}</p>
     </div>
   );
 }
