@@ -4,6 +4,7 @@ import { login, signup } from "../../../services/authService";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/auth/context";
 import {
+  isValidEmail,
   passwordValidation,
   repeatPasswordValidation,
 } from "../../../utils/functions/validation";
@@ -13,6 +14,7 @@ import closeEyeIcon from "../../../public/icons/closeEye.svg";
 
 export default function SignupPage() {
   const [email, setEmail] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [repeatPasswordError, setRepeatPasswordError] = useState<string>("");
@@ -24,13 +26,11 @@ export default function SignupPage() {
   const [passwordSuccess, setPasswordSuccess] = useState<boolean>(false);
   const [repeatPassword, setRepeatPassword] = useState<string>("");
 
-  console.log(passwordError, passwordSuccess);
-
   const navigate = useNavigate();
   const { setIsAuth } = useContext(AuthContext);
 
   const handleSignup = async () => {
-    if (repeatPassword === password && password) {
+    if (!emailError && !passwordError && !repeatPasswordError) {
       const registeredUser = await signup(email, password);
       if (registeredUser) {
         const isLoggedIn = await login(email, password);
@@ -60,9 +60,11 @@ export default function SignupPage() {
         <input
           onChange={(e) => {
             setEmail(e.target.value);
+            isValidEmail(e.target.value, setEmailError);
           }}
           type="email"
         />
+        {emailError && <ErrorMessage message={emailError} />}
         <p>Password</p>
         <div className={styles.passwordSection}>
           <input

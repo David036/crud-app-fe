@@ -62,16 +62,29 @@ export const repeatPasswordValidation = (
   setPasswordSuccess: (value: boolean) => void
 ) => {
   if (repeatPassword.length === 0) {
-    console.log(password, repeatPassword, 1);
     setPasswordErr("Please repeat your password");
     setPasswordSuccess(false);
   } else if (repeatPassword !== password) {
-    console.log(password, repeatPassword, 2);
     setPasswordErr("Password mismatch");
     setPasswordSuccess(false);
   } else {
-    console.log(password, repeatPassword, 3);
     setPasswordSuccess(true);
     setPasswordErr("");
+  }
+};
+
+export const isValidEmail = (
+  email: string,
+  setEmailError: (value: string) => void
+) => {
+  if (!email) {
+    setEmailError("Email is required.");
+  } else {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (emailPattern.test(email)) {
+      setEmailError("");
+    } else {
+      setEmailError("Email is not a valid");
+    }
   }
 };
