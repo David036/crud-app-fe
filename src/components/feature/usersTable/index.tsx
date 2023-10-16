@@ -1,4 +1,4 @@
-import { removeUser, searchUsers } from "../../services/userService";
+import { removeUser, searchUsers } from "../../../services/userService";
 import EditModal from "../editModal";
 import { UserTableProps, UserTypes } from "./types";
 import styles from "./usersTable.module.scss";

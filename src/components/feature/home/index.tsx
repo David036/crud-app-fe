@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import styles from "./home.module.scss";
 import UsersTable from "../usersTable";
-import { createUser, getAllUsers } from "../../services/userService";
+import { createUser, getAllUsers } from "../../../services/userService";
 import UserInputs from "../userInputs";
-import { AuthContext } from "../../context/auth/context";
+import { AuthContext } from "../../../context/auth/context";
 import UserAccount from "../userAccount";
 
 export default function Home() {

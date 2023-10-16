@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./editModal.module.scss";
 import { ModalProps } from "./types";
-import { updateUser } from "../../services/userService";
+import { updateUser } from "../../../services/userService";
 
 export default function EditModal({
   setEditModalIsOpen,
@@ -39,24 +39,31 @@ export default function EditModal({
         }}
         className={styles.modalContent}
       >
-        <button onClick={() => setEditModalIsOpen(false)}>Close Modal</button>
+        <button
+          className={styles.closeBtn}
+          onClick={() => setEditModalIsOpen(false)}
+        >
+          X
+        </button>
         <h1>Edit modal</h1>
-        <input
-          defaultValue={selectedUser?.name}
-          onChange={(e) => setNewName(e.target.value)}
-          type="string"
-        ></input>
-        <input
-          defaultValue={selectedUser?.surname}
-          onChange={(e) => setNewSurname(e.target.value)}
-          type="string"
-        ></input>
-        <input
-          onChange={(e) => setNewAge(e.target.value)}
-          type="number"
-          defaultValue={selectedUser?.age}
-        ></input>
-        <button onClick={editUser}>Edit User</button>
+        <div className={styles.inputsContainer}>
+          <input
+            defaultValue={selectedUser?.name}
+            onChange={(e) => setNewName(e.target.value)}
+            type="string"
+          ></input>
+          <input
+            defaultValue={selectedUser?.surname}
+            onChange={(e) => setNewSurname(e.target.value)}
+            type="string"
+          ></input>
+          <input
+            onChange={(e) => setNewAge(e.target.value)}
+            type="number"
+            defaultValue={selectedUser?.age}
+          ></input>
+        </div>
+        <button className={styles.editBtn} onClick={editUser}>Edit User</button>
       </div>
     </div>
   );

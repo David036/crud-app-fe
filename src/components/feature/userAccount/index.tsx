@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./userAccount.module.scss";
-import { getCurrentUser } from "../../services/authService";
+import { getCurrentUser } from "../../../services/authService";
 import { useNavigate } from "react-router-dom";
 
 export default function UserAccount() {

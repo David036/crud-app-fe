@@ -1,7 +1,7 @@
-import Home from "./components/home";
+import Home from "./components/feature/home";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import LoginPage from "./components/login";
-import SignupPage from "./components/signup";
+import LoginPage from "./components/feature/login";
+import SignupPage from "./components/feature/signup";
 import { useEffect, useState } from "react";
 import { AuthContext } from "./context/auth/context";
 import { getCurrentUser } from "./services/authService";

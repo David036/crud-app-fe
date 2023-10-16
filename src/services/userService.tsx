@@ -1,4 +1,4 @@
-import { UserTypes } from "../components/usersTable/types";
+import { UserTypes } from "../components/feature/usersTable/types";
 import { axiosInstance } from "./axiosService";
 
 const url = "users/";

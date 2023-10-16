@@ -1,0 +1,90 @@
+.modalContainer {
+  position: fixed;
+  backdrop-filter: blur(5px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(6, 9, 51, 0.822);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modalContent {
+    max-width: 400px;
+    width: 100%;
+    height: 300px;
+    padding: 10px;
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(6, 9, 51);
+    border-radius: 20px;
+    position: relative;
+
+    h1 {
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .inputsContainer {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      margin-bottom: 15px;
+      width: 100%;
+      align-items: center;
+
+      input {
+        border-radius: 5px;
+        border: 1px solid rgb(13, 13, 78);
+        padding: 5px 10px;
+        width: 80%;
+      }
+    }
+
+    .closeBtn {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      background-color: rgb(6, 9, 51);
+      border: 1px solid white;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    .editBtn {
+      background-color: inherit;
+      cursor: pointer;
+      width: 80%;
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: 1px solid white;
+      background-color: inherit;
+      color: white;
+      font-size: 15px;
+      transition: 0.2s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}

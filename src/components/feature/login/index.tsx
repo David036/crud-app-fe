@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import styles from "./login.module.scss";
-import { login } from "../../services/authService";
+import { login } from "../../../services/authService";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/auth/context";
+import { AuthContext } from "../../../context/auth/context";
 
 export default function LoginPage() {
   const [email, setEmail] = useState<string>("");

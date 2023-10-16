@@ -1,7 +1,9 @@
+@import "./fonts.scss";
+
 * {
   box-sizing: border-box;
   margin: 0;
-  font-family: "Noto Serif", serif;
+  font-family: var(--garamond);
 }
 
 html:root {
@@ -9,4 +11,9 @@ html:root {
   --purple_900: #190019;
   --purple_200: #83305c;
   --purple_100: #864f6c;
+}
+
+html:root {
+  --garamond: Garamond;
+  --garamond-bold: Garamond-Bold;
 }
