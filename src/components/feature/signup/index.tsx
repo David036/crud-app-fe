@@ -32,7 +32,7 @@ export default function SignupPage() {
   const handleSignup = async () => {
     if (!emailError && !passwordError && !repeatPasswordError) {
       const registeredUser = await signup(email, password);
-      if (registeredUser) {
+      if (registeredUser?.data.success) {
         const isLoggedIn = await login(email, password);
         if (isLoggedIn?.data.token) {
           localStorage.setItem("accessToken", isLoggedIn?.data.token);

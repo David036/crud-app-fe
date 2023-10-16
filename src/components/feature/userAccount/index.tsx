@@ -26,7 +26,6 @@ export default function UserAccount() {
     <div className={styles.container}>
       <p>Email : {userEmail}</p>
       <button onClick={handleLogOut}>Log out</button>
-      <button onClick={() => navigate("signup")}>Sign up</button>
     </div>
   );
 }
