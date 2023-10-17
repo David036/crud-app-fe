@@ -32,7 +32,12 @@ export default function LoginPage() {
         <button className={styles.loginBtn} onClick={handleLogin}>
           Login
         </button>
-        <button className={styles.signupBtn} onClick={() => navigate("/signup")}>Sign up</button>
+        <button
+          className={styles.signupBtn}
+          onClick={() => navigate("/signup")}
+        >
+          Sign up
+        </button>
       </div>
     </div>
   );

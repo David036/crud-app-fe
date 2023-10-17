@@ -11,6 +11,8 @@ import {
 import { ErrorMessage } from "../../shared/errorMessage";
 import openEyeIcon from "../../../public/icons/openEye.svg";
 import closeEyeIcon from "../../../public/icons/closeEye.svg";
+import openNotification from "../../shared/notification";
+import { NotificationTypes } from "../../shared/notification/types";
 
 export default function SignupPage() {
   const [email, setEmail] = useState<string>("");
@@ -36,9 +38,20 @@ export default function SignupPage() {
         const isLoggedIn = await login(email, password);
         if (isLoggedIn?.data.token) {
           localStorage.setItem("accessToken", isLoggedIn?.data.token);
+          openNotification({
+            type: NotificationTypes.SUCCESS,
+            message: "You have successfully registered",
+            description: "",
+          });
           navigate("/");
           setIsAuth(true);
         }
+      } else {
+        openNotification({
+          type: NotificationTypes.ERROR,
+          message: "You already have an account",
+          description: "",
+        });
       }
     }
   };
