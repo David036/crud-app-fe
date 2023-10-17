@@ -9,10 +9,9 @@ import {
   repeatPasswordValidation,
 } from "../../../utils/functions/validation";
 import { ErrorMessage } from "../../shared/errorMessage";
-import openEyeIcon from "../../../public/icons/openEye.svg";
-import closeEyeIcon from "../../../public/icons/closeEye.svg";
 import openNotification from "../../shared/notification";
 import { NotificationTypes } from "../../shared/notification/types";
+import { Button, Input } from "antd";
 
 export default function SignupPage() {
   const [email, setEmail] = useState<string>("");
@@ -20,9 +19,6 @@ export default function SignupPage() {
   const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [repeatPasswordError, setRepeatPasswordError] = useState<string>("");
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState<boolean>(false);
   const [repeatPasswordSuccess, setRepeatPasswordSuccess] =
     useState<boolean>(false);
   const [passwordSuccess, setPasswordSuccess] = useState<boolean>(false);
@@ -70,7 +66,7 @@ export default function SignupPage() {
       <div className={styles.signupContainer}>
         <h1>Sign up</h1>
         <p>Email</p>
-        <input
+        <Input
           onChange={(e) => {
             setEmail(e.target.value);
             isValidEmail(e.target.value, setEmailError);
@@ -79,44 +75,30 @@ export default function SignupPage() {
         />
         {emailError && <ErrorMessage message={emailError} />}
         <p>Password</p>
-        <div className={styles.passwordSection}>
-          <input
-            onChange={(e) => {
-              setPassword(e.target.value);
-              passwordValidation(e, setPasswordError, setPasswordSuccess);
-            }}
-            type={showPassword ? "text" : "password"}
-          />
-          <img
-            alt="show icon"
-            src={showPassword ? closeEyeIcon : openEyeIcon}
-            onClick={() => setShowPassword(!showPassword)}
-            width={25}
-          />
-        </div>
+        <Input.Password
+          onChange={(e) => {
+            setPassword(e.target.value);
+            passwordValidation(e, setPasswordError, setPasswordSuccess);
+          }}
+          placeholder="Password"
+        />
         {!passwordSuccess && <ErrorMessage message={passwordError} />}
         <p>Confirm password</p>
-        <div className={styles.passwordSection}>
-          <input
-            onChange={(e) => {
-              setRepeatPassword(e.target.value);
-            }}
-            type={showConfirmPassword ? "text" : "password"}
-          />
-          <img
-            alt="show icon"
-            src={showConfirmPassword ? closeEyeIcon : openEyeIcon}
-            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            width={25}
-          />
-        </div>
+        <Input.Password
+          onChange={(e) => {
+            setRepeatPassword(e.target.value);
+          }}
+          placeholder="Confirm password"
+        />
         {!repeatPasswordSuccess && (
           <ErrorMessage message={repeatPasswordError} />
         )}
-        <button className={styles.signupBtn} onClick={handleSignup}>
+        <Button className={styles.signupBtn} onClick={handleSignup}>
           Sign up
-        </button>
-        <button onClick={() => navigate("/login")}>Login page</button>
+        </Button>
+        <Button className={styles.loginBtn} onClick={() => navigate("/login")}>
+          Login page
+        </Button>
       </div>
     </div>
   );

@@ -3,10 +3,19 @@ import styles from "./login.module.scss";
 import { login } from "../../../services/authService";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/auth/context";
+import { Button, Input } from "antd";
+import { ErrorMessage } from "../../shared/errorMessage";
+import {
+  isValidEmail,
+  passwordValidation,
+} from "../../../utils/functions/validation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
+  const [passwordSuccess, setPasswordSuccess] = useState<boolean>(false);
 
   const { setIsAuth } = useContext(AuthContext);
 
@@ -26,18 +35,32 @@ export default function LoginPage() {
       <div className={styles.loginContainer}>
         <h1>Login</h1>
         <p>Email</p>
-        <input onChange={(e) => setEmail(e.target.value)} type="string" />
+        <Input
+          onChange={(e) => {
+            setEmail(e.target.value);
+            isValidEmail(e.target.value, setEmailError);
+          }}
+          type="string"
+        />
+        {emailError && <ErrorMessage message={emailError} />}
         <p>Password</p>
-        <input onChange={(e) => setPassword(e.target.value)} type="password" />
-        <button className={styles.loginBtn} onClick={handleLogin}>
+        <Input.Password
+          onChange={(e) => {
+            setPassword(e.target.value);
+            passwordValidation(e, setPasswordError, setPasswordSuccess);
+          }}
+          type="password"
+        />
+        {!passwordSuccess && <ErrorMessage message={passwordError} />}
+        <Button className={styles.loginBtn} onClick={handleLogin}>
           Login
-        </button>
-        <button
+        </Button>
+        <Button
           className={styles.signupBtn}
           onClick={() => navigate("/signup")}
         >
           Sign up
-        </button>
+        </Button>
       </div>
     </div>
   );

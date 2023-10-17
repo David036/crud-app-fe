@@ -5,9 +5,6 @@
   flex-direction: column;
   row-gap: 20px;
   margin: 0 auto;
-  height: 600px;
-  overflow-y: auto;
-  overflow-x: hidden;
 
   .userItem {
     display: flex;
@@ -15,5 +12,21 @@
     width: 100%;
     border: 1px solid black;
     padding: 5px;
+  }
+
+  .btnsContainer {
+    display: flex;
+    column-gap: 5px;
+
+    .actionBtn {
+      background: inherit;
+      border: 1px solid black;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: center;
+      align-items: center;
+      cursor: pointer;
+      padding: 5px 10px;
+    }
   }
 }

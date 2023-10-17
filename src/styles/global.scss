@@ -3,7 +3,7 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  font-family: var(--garamond);
+  font-family: var(--montserrat);
 }
 
 html:root {
@@ -16,4 +16,6 @@ html:root {
 html:root {
   --garamond: Garamond;
   --garamond-bold: Garamond-Bold;
+  --montserrat: Montserrat;
+  --montserrat-bold: Montserrat-Bold;
 }

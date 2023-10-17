@@ -1,3 +1,4 @@
+import { Button, Input } from "antd";
 import { UserInputsProps } from "./types";
 import styles from "./userInputs.module.scss";
 
@@ -11,7 +12,7 @@ export default function UserInputs({
     <div className={styles.inputsContainer}>
       <div className={styles.inputSection}>
         <span>Name</span>
-        <input
+        <Input
           onChange={(e) => {
             setName(e.target.value);
           }}
@@ -20,7 +21,7 @@ export default function UserInputs({
       </div>
       <div className={styles.inputSection}>
         <span>Surname</span>
-        <input
+        <Input
           onChange={(e) => {
             setSurname(e.target.value);
           }}
@@ -29,14 +30,14 @@ export default function UserInputs({
       </div>
       <div className={styles.inputSection}>
         <span>Age</span>
-        <input
+        <Input
           onChange={(e) => {
             setAge(e.target.value);
           }}
           type="number"
         />
       </div>
-      <button onClick={handleCreate}>Create User</button>
+      <Button onClick={handleCreate}>Create User</Button>
     </div>
   );
 }

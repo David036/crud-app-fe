@@ -2,11 +2,14 @@ import { useState } from "react";
 import styles from "./editModal.module.scss";
 import { ModalProps } from "./types";
 import { updateUser } from "../../../services/userService";
+import Modal from "../../shared/modal";
+import { Button, Input } from "antd";
 
 export default function EditModal({
-  setEditModalIsOpen,
   selectedUser,
   getUsers,
+  editModalIsVisible,
+  onClose,
 }: ModalProps) {
   const [newName, setNewName] = useState<string>(selectedUser.name);
   const [newSurname, setNewSurname] = useState<string>(selectedUser.surname);
@@ -21,50 +24,45 @@ export default function EditModal({
         age: parseInt(newAge),
       };
       await updateUser(editedUser);
-      setEditModalIsOpen(false);
+      onClose();
       getUsers();
     }
   };
 
   return (
-    <div
-      onClick={() => {
-        setEditModalIsOpen(false);
+    <Modal
+      // key={selectedUser}
+      isModalOpen={editModalIsVisible}
+      onClose={() => {
+        onClose();
+        setNewName("");
+        setNewSurname("");
+        setNewAge("");
       }}
-      className={styles.modalContainer}
     >
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        className={styles.modalContent}
-      >
-        <button
-          className={styles.closeBtn}
-          onClick={() => setEditModalIsOpen(false)}
-        >
-          X
-        </button>
-        <h1>Edit modal</h1>
+      <div className={styles.modalContent}>
+        <h1>Edit Modal</h1>
         <div className={styles.inputsContainer}>
-          <input
+          <Input
             defaultValue={selectedUser?.name}
             onChange={(e) => setNewName(e.target.value)}
             type="string"
-          ></input>
-          <input
+          />
+          <Input
             defaultValue={selectedUser?.surname}
             onChange={(e) => setNewSurname(e.target.value)}
             type="string"
-          ></input>
-          <input
+          />
+          <Input
             onChange={(e) => setNewAge(e.target.value)}
             type="number"
             defaultValue={selectedUser?.age}
-          ></input>
+          />
         </div>
-        <button className={styles.editBtn} onClick={editUser}>Edit User</button>
+        <Button className={styles.editBtn} onClick={editUser}>
+          Edit User
+        </Button>
       </div>
-    </div>
+    </Modal>
   );
 }
