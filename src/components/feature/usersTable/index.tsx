@@ -1,14 +1,15 @@
-import { removeUser, searchUsers } from "../../../services/userService";
-import Table from "../../shared/table";
-import EditModal from "../editModal";
-import { UserTableProps, UserTypes } from "./types";
-import styles from "./usersTable.module.scss";
 import { useEffect, useState } from "react";
-import editIcon from "../../../public/icons/edit.svg";
-import removeIcon from "../../../public/icons/remove.svg";
-
 import { Button } from "antd";
 import Search from "antd/es/input/Search";
+import EditModal from "../editModal";
+import DeleteModal from "../deleteModal";
+import Table from "../../shared/table";
+import { searchUsers } from "../../../services/userService";
+import editIcon from "../../../public/icons/edit.svg";
+import removeIcon from "../../../public/icons/remove.svg";
+import { UserTableProps, UserTypes } from "./types";
+
+import styles from "./usersTable.module.scss";
 
 export default function UsersTable({
   users,
@@ -18,14 +19,17 @@ export default function UsersTable({
   const [selectedUser, setSelectedUser] = useState<UserTypes | null>(null);
   const [searchValue, setSearchValue] = useState<string>("");
   const [editModalIsVisible, setEditModalIsVisible] = useState<boolean>(false);
-  const deleteUser = async (id: string) => {
-    await removeUser(id);
-    getUsers();
-  };
+  const [deleteModalIsVisible, setDeleteModalIsVisible] =
+    useState<boolean>(false);
 
   const handleEdit = (item: UserTypes) => {
     setSelectedUser(item);
     setEditModalIsVisible(true);
+  };
+
+  const handleDelete = (item: UserTypes) => {
+    setSelectedUser(item);
+    setDeleteModalIsVisible(true);
   };
 
   useEffect(() => {
@@ -44,7 +48,6 @@ export default function UsersTable({
       title: "Name",
       dataIndex: "name",
       key: "name",
-      // render: (text: string) => <a>{text}</a>,
     },
     {
       title: "Surname",
@@ -66,7 +69,7 @@ export default function UsersTable({
           </Button>
           <Button
             className={styles.actionBtn}
-            onClick={() => deleteUser(item.id)}
+            onClick={() => handleDelete(item)}
           >
             <img width={20} height={20} alt="remove icon" src={removeIcon} />
           </Button>
@@ -87,12 +90,23 @@ export default function UsersTable({
       />
       {selectedUser && (
         <EditModal
+          key={selectedUser.id}
           editModalIsVisible={editModalIsVisible}
           onClose={() => {
             setEditModalIsVisible(false);
           }}
           getUsers={getUsers}
           selectedUser={selectedUser}
+        />
+      )}
+      {selectedUser && (
+        <DeleteModal
+          deleteModalIsVisible={deleteModalIsVisible}
+          onClose={() => {
+            setDeleteModalIsVisible(false);
+          }}
+          selectedUser={selectedUser}
+          getUsers={getUsers}
         />
       )}
       <Table data={users} columns={columns} />
