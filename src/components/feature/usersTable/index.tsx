@@ -15,6 +15,12 @@ export default function UsersTable({
   users,
   getUsers,
   setUsers,
+  setCurrentPage,
+  setLimit,
+  limit,
+  currentPage,
+  countOfPage,
+  setCountOfPage,
 }: UserTableProps) {
   const [selectedUser, setSelectedUser] = useState<UserTypes | null>(null);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -32,16 +38,18 @@ export default function UsersTable({
     setDeleteModalIsVisible(true);
   };
 
-  useEffect(() => {
-    getUsers();
-  }, []);
-
   const handleSearch = async () => {
-    const searchedUsers = await searchUsers(searchValue);
-    if (searchedUsers) {
-      setUsers(searchedUsers);
+    const searchedUsers = await searchUsers(searchValue, limit, currentPage);
+
+    if (searchedUsers?.data) {
+      setUsers(searchedUsers.data);
+      setCountOfPage(searchedUsers.count);
     }
   };
+
+  useEffect(() => {
+    handleSearch();
+  }, [limit, currentPage]);
 
   const columns = [
     {
@@ -109,7 +117,13 @@ export default function UsersTable({
           getUsers={getUsers}
         />
       )}
-      <Table data={users} columns={columns} />
+      <Table
+        countOfPage={countOfPage}
+        setCurrentPage={setCurrentPage}
+        setLimit={setLimit}
+        data={users}
+        columns={columns}
+      />
     </div>
   );
 }

@@ -14,6 +14,7 @@ export default function DeleteModal({
 }: DeleteModalProps) {
   const deleteUser = async (id: string) => {
     await removeUser(id);
+    onClose();
     getUsers();
   };
   return (

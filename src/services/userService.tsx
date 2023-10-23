@@ -20,9 +20,14 @@ export const createUser = async (
   }
 };
 
-export const getAllUsers = async () => {
+export const getAllUsers = async (
+  limit: number = 0,
+  startIndex: number = 0
+) => {
   try {
-    const response = await axiosInstance.get(`${url}get-users`);
+    const response = await axiosInstance.get(
+      `${url}get-users?limit=${limit}&offset=${startIndex}`
+    );
     return response.data;
   } catch (error) {
     console.error("Error:", error);
@@ -51,10 +56,15 @@ export const updateUser = async (user: UserTypes) => {
   }
 };
 
-export const searchUsers = async (searchValue: string) => {
+export const searchUsers = async (
+  searchValue: string,
+  limit: number = 0,
+  startIndex: number = 0
+) => {
+  let offset = limit * (startIndex - 1);
   try {
     const searchResult = await axiosInstance.get(
-      `${url}search-users?searchValue=${searchValue}`
+      `${url}search-users?searchValue=${searchValue}&limit=${limit}&offset=${offset}`
     );
     return searchResult.data;
   } catch (error) {
