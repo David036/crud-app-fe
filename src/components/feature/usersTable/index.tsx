@@ -102,6 +102,7 @@ export default function UsersTable({
           editModalIsVisible={editModalIsVisible}
           onClose={() => {
             setEditModalIsVisible(false);
+            setSelectedUser(null);
           }}
           getUsers={getUsers}
           selectedUser={selectedUser}

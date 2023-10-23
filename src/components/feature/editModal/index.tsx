@@ -20,8 +20,8 @@ export default function EditModal({
     if (selectedUser) {
       const editedUser = {
         id: selectedUser.id,
-        name: newName,
-        surname: newSurname,
+        name: newName ?? selectedUser.name,
+        surname: newSurname ?? selectedUser.surname,
         age: parseInt(newAge),
       };
       await updateUser(editedUser);
