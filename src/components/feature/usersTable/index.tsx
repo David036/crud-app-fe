@@ -91,7 +91,7 @@ export default function UsersTable({
       <Search
         onChange={(e) => setSearchValue(e.target.value)}
         placeholder="input search text"
-        allowClear
+        allowClear={false}
         enterButton="Search"
         size="large"
         onSearch={handleSearch}
