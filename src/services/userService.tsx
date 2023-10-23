@@ -61,9 +61,10 @@ export const searchUsers = async (
   limit: number = 0,
   startIndex: number = 0
 ) => {
+  let offset = limit * (startIndex - 1);
   try {
     const searchResult = await axiosInstance.get(
-      `${url}search-users?searchValue=${searchValue}&limit=${limit}&offset=${startIndex}`
+      `${url}search-users?searchValue=${searchValue}&limit=${limit}&offset=${offset}`
     );
     return searchResult.data;
   } catch (error) {

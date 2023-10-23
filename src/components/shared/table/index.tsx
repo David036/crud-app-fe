@@ -6,12 +6,13 @@ export default function Table({
   data,
   setLimit,
   setCurrentPage,
+  countOfPage,
 }: TableProps) {
   return (
     <AntdTable
       pagination={{
         showSizeChanger: true,
-        total: 100,
+        total: countOfPage,
       }}
       onChange={(e: TablePaginationConfig): void => {
         setCurrentPage(e.current as any);

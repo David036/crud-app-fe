@@ -21,12 +21,13 @@ export default function Home() {
     const res = await getAllUsers(limit, limit * (currentPage - 1));
     if (res?.success) {
       setUsers(res.data);
+      setCountOfPage(res.count);
     }
   };
 
   useEffect(() => {
     getUsers();
-  }, [limit, currentPage]);
+  }, []);
 
   const handleCreate = async () => {
     await createUser(name, surname, age);
@@ -42,6 +43,8 @@ export default function Home() {
         setAge={setAge}
       />
       <UsersTable
+        setCountOfPage={setCountOfPage}
+        countOfPage={countOfPage}
         limit={limit}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

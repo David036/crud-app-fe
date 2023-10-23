@@ -3,4 +3,5 @@ export interface TableProps {
   data: any;
   setLimit: (limit: number) => void;
   setCurrentPage: (page: number) => void;
+  countOfPage: number;
 }

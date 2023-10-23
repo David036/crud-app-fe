@@ -13,4 +13,6 @@ export interface UserTableProps {
   setLimit: (limit: number) => void;
   limit: number;
   currentPage: number;
+  countOfPage: number;
+  setCountOfPage: (count: number) => void;
 }
