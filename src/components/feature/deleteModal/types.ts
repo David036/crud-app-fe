@@ -5,4 +5,5 @@ export interface DeleteModalProps {
   onClose: () => void;
   selectedUser: UserTypes;
   getUsers: () => Promise<void>;
+  setCurrentPage: (page: number) => void;
 }
