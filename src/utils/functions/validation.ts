@@ -1,9 +1,9 @@
 import { ChangeEvent } from "react";
+import { ErrorTypes } from "../../components/feature/userInputs/types";
 
 export const passwordValidation = (
   e: ChangeEvent<HTMLInputElement>,
-  setPasswordErr: (value: string) => void,
-  setPasswordSuccess: (value: boolean) => void
+  setPasswordErr: (value: string) => void
 ): void => {
   const passwordInputValue = e.target.value.trim();
 
@@ -31,7 +31,6 @@ export const passwordValidation = (
 
   if (passwordLength === 0) {
     setPasswordErr("Password is required.");
-    setPasswordSuccess(false);
   } else if (passwordCheck()) {
     const passwordErrors = [
       !minLengthPassword && "8 characters",
@@ -48,9 +47,7 @@ export const passwordValidation = (
     } else {
       setPasswordErr("");
     }
-    setPasswordSuccess(false);
   } else {
-    setPasswordSuccess(true);
     setPasswordErr("");
   }
 };
@@ -86,5 +83,41 @@ export const isValidEmail = (
     } else {
       setEmailError("Email is not a valid");
     }
+  }
+};
+
+export const ageValidation = (
+  age: string,
+  setAgeError: (error: ErrorTypes) => void
+) => {
+  if (!age) {
+  } else if (+age < 0) {
+    setAgeError({ message: "Age cannot be negative.", success: false });
+  } else {
+    setAgeError({ message: "", success: true });
+  }
+};
+
+export const nameValidation = (
+  name: string,
+  setNameError: (error: ErrorTypes) => void,
+  type: string
+) => {
+  const isNameValid = /^[A-Za-z\s]+$/.test(name);
+  if (name === "") {
+    setNameError({
+      success: false,
+      message: `The ${type} can't be empty`,
+    });
+  } else if (!isNameValid) {
+    setNameError({
+      success: false,
+      message: `${type} should contain only letters`,
+    });
+  } else {
+    setNameError({
+      success: true,
+      message: "",
+    });
   }
 };

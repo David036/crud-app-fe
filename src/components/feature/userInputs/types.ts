@@ -4,3 +4,8 @@ export interface UserInputsProps {
   setAge: (age: string) => void;
   handleCreate: () => void;
 }
+
+export interface ErrorTypes {
+  success: boolean;
+  message: string;
+}
