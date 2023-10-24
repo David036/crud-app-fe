@@ -4,6 +4,8 @@ import { DeleteModalProps } from "./types";
 import { removeUser } from "../../../services/userService";
 
 import styles from "./deleteModal.module.scss";
+import openNotification from "../../shared/notification";
+import { NotificationTypes } from "../../shared/notification/types";
 
 export default function DeleteModal({
   deleteModalIsVisible,
@@ -14,10 +16,18 @@ export default function DeleteModal({
   ...rest
 }: DeleteModalProps) {
   const deleteUser = async (id: string) => {
-    await removeUser(id);
-    onClose();
-    setCurrentPage(1);
-    getUsers();
+    const removedUser = await removeUser(id);
+
+    if (removedUser?.data.success) {
+      openNotification({
+        type: NotificationTypes.SUCCESS,
+        message: `User "${removedUser.data.data.name} ${removedUser.data.data.surname}" was successfully deleted`,
+        description: "",
+      });
+      onClose();
+      setCurrentPage(1);
+      getUsers();
+    }
   };
   return (
     <Modal

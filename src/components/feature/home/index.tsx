@@ -5,6 +5,8 @@ import { createUser, getAllUsers } from "../../../services/userService";
 import UserInputs from "../userInputs";
 import { AuthContext } from "../../../context/auth/context";
 import UserAccount from "../userAccount";
+import openNotification from "../../shared/notification";
+import { NotificationTypes } from "../../shared/notification/types";
 
 export default function Home() {
   const [name, setName] = useState<string>("");
@@ -30,8 +32,15 @@ export default function Home() {
   }, []);
 
   const handleCreate = async () => {
-    await createUser(name, surname, age);
-    await getUsers();
+    const createdUser = await createUser(name, surname, age);
+    if (createdUser?.data.success) {
+      openNotification({
+        type: NotificationTypes.SUCCESS,
+        message: `User "${createdUser.data.data.name} ${createdUser.data.data.surname}" was successfully created`,
+        description: "",
+      });
+      await getUsers();
+    }
   };
 
   return (

@@ -14,7 +14,7 @@ export const createUser = async (
       surname,
       age: parseInt(age),
     };
-    await axiosInstance.post(`${url}create-user`, requestBody);
+    return await axiosInstance.post(`${url}create-user`, requestBody);
   } catch (error) {
     console.error("Error:", error);
   }
@@ -36,7 +36,7 @@ export const getAllUsers = async (
 
 export const removeUser = async (id: string) => {
   try {
-    await axiosInstance.delete(`${url}remove-user/${id}`);
+    return await axiosInstance.delete(`${url}remove-user/${id}`);
   } catch (error) {
     console.error("Error:", error);
   }
