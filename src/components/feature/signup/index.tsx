@@ -21,7 +21,6 @@ export default function SignupPage() {
   const [repeatPasswordError, setRepeatPasswordError] = useState<string>("");
   const [repeatPasswordSuccess, setRepeatPasswordSuccess] =
     useState<boolean>(false);
-  const [passwordSuccess, setPasswordSuccess] = useState<boolean>(false);
   const [repeatPassword, setRepeatPassword] = useState<string>("");
 
   const navigate = useNavigate();
@@ -73,16 +72,16 @@ export default function SignupPage() {
           }}
           type="email"
         />
-        {emailError && <ErrorMessage message={emailError} />}
+        <ErrorMessage message={emailError} />
         <p>Password</p>
         <Input.Password
           onChange={(e) => {
             setPassword(e.target.value);
-            passwordValidation(e, setPasswordError, setPasswordSuccess);
+            passwordValidation(e, setPasswordError);
           }}
           placeholder="Password"
         />
-        {!passwordSuccess && <ErrorMessage message={passwordError} />}
+        <ErrorMessage message={passwordError} />
         <p>Confirm password</p>
         <Input.Password
           onChange={(e) => {

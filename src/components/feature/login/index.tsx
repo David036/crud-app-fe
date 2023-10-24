@@ -15,7 +15,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
-  const [passwordSuccess, setPasswordSuccess] = useState<boolean>(false);
 
   const { setIsAuth } = useContext(AuthContext);
 
@@ -42,16 +41,16 @@ export default function LoginPage() {
           }}
           type="string"
         />
-        {emailError && <ErrorMessage message={emailError} />}
+        <ErrorMessage message={emailError} />
         <p>Password</p>
         <Input.Password
           onChange={(e) => {
             setPassword(e.target.value);
-            passwordValidation(e, setPasswordError, setPasswordSuccess);
+            passwordValidation(e, setPasswordError);
           }}
           type="password"
         />
-        {!passwordSuccess && <ErrorMessage message={passwordError} />}
+        <ErrorMessage message={passwordError} />
         <Button className={styles.loginBtn} onClick={handleLogin}>
           Login
         </Button>
