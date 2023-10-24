@@ -110,6 +110,7 @@ export default function UsersTable({
       )}
       {selectedUser && (
         <DeleteModal
+          setCurrentPage={setCurrentPage}
           deleteModalIsVisible={deleteModalIsVisible}
           onClose={() => {
             setDeleteModalIsVisible(false);

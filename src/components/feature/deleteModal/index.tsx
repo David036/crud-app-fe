@@ -10,11 +10,13 @@ export default function DeleteModal({
   onClose,
   selectedUser,
   getUsers,
+  setCurrentPage,
   ...rest
 }: DeleteModalProps) {
   const deleteUser = async (id: string) => {
     await removeUser(id);
     onClose();
+    setCurrentPage(1);
     getUsers();
   };
   return (
