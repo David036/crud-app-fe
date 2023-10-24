@@ -91,6 +91,7 @@ export const ageValidation = (
   setAgeError: (error: ErrorTypes) => void
 ) => {
   if (!age) {
+    setAgeError({ message: "The Age can't be empty", success: false });
   } else if (+age < 0) {
     setAgeError({ message: "Age cannot be negative.", success: false });
   } else {
