@@ -1,12 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./home.module.scss";
 import UsersTable from "../usersTable";
 import { createUser, getAllUsers } from "../../../services/userService";
 import UserInputs from "../userInputs";
-import { AuthContext } from "../../../context/auth/context";
-import UserAccount from "../userAccount";
 import openNotification from "../../shared/notification";
 import { NotificationTypes } from "../../shared/notification/types";
+import Header from "../header";
 
 export default function Home() {
   const [name, setName] = useState<string>("");
@@ -16,8 +15,6 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
   const [countOfPage, setCountOfPage] = useState<number>(0);
-
-  const { isAuth } = useContext(AuthContext);
 
   const getUsers = async (): Promise<void> => {
     const res = await getAllUsers(limit, limit * (currentPage - 1));
@@ -44,25 +41,27 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.container}>
-      <UserInputs
-        handleCreate={handleCreate}
-        setName={setName}
-        setSurname={setSurname}
-        setAge={setAge}
-      />
-      <UsersTable
-        setCountOfPage={setCountOfPage}
-        countOfPage={countOfPage}
-        limit={limit}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        setLimit={setLimit}
-        setUsers={setUsers}
-        getUsers={getUsers}
-        users={users}
-      />
-      {isAuth && <UserAccount />}
+    <div className={styles.layout}>
+      <Header />
+      <div className={styles.container}>
+        <UserInputs
+          handleCreate={handleCreate}
+          setName={setName}
+          setSurname={setSurname}
+          setAge={setAge}
+        />
+        <UsersTable
+          setCountOfPage={setCountOfPage}
+          countOfPage={countOfPage}
+          limit={limit}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          setLimit={setLimit}
+          setUsers={setUsers}
+          getUsers={getUsers}
+          users={users}
+        />
+      </div>
     </div>
   );
 }
