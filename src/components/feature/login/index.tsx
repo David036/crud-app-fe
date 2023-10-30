@@ -15,8 +15,8 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     const isLoggedIn = await login(email, password);
-    if (isLoggedIn?.data.token) {
-      localStorage.setItem("accessToken", isLoggedIn?.data.token);
+    if (isLoggedIn?.data?.accessToken) {
+      localStorage.setItem("accessToken", isLoggedIn?.data?.accessToken);
       navigate("/");
       setIsAuth(true);
     }

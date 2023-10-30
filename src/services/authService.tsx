@@ -26,7 +26,7 @@ export const login = async (email: string, password: string) => {
   } catch (error: any) {
     openNotification({
       type: NotificationTypes.ERROR,
-      message: error.response.data.error,
+      message: error.response?.data?.error,
       description: "",
     });
     console.error("Error:", error);
@@ -36,6 +36,14 @@ export const login = async (email: string, password: string) => {
 export const getCurrentUser = async () => {
   try {
     return await axiosInstance.get(`${url}getCurrentUser`);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+export const logout = async () => {
+  try {
+    return await axiosInstance.post(`${url}logout`);
   } catch (error) {
     console.error("Error:", error);
   }

@@ -31,8 +31,8 @@ export default function SignupPage() {
       const registeredUser = await signup(email, password);
       if (registeredUser?.data.success) {
         const isLoggedIn = await login(email, password);
-        if (isLoggedIn?.data.token) {
-          localStorage.setItem("accessToken", isLoggedIn?.data.token);
+        if (isLoggedIn?.data.accessToken) {
+          localStorage.setItem("accessToken", isLoggedIn?.data.accessToken);
           openNotification({
             type: NotificationTypes.SUCCESS,
             message: "You have successfully registered",
