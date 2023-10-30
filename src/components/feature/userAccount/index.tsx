@@ -1,13 +1,17 @@
 import styles from "./userAccount.module.scss";
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
+import { logout } from "../../../services/authService";
 
 export default function UserAccount() {
   const navigate = useNavigate();
 
-  const handleLogOut = () => {
-    localStorage.removeItem("accessToken");
-    navigate("/login");
+  const handleLogOut = async () => {
+    const response = await logout();
+    if (response?.data.success) {
+      localStorage.removeItem("accessToken");
+      navigate("/login");
+    }
   };
 
   return (

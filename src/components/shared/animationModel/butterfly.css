@@ -221,8 +221,6 @@
     height: 0;
     width: 0;
 }
-
 .butterfly {
     transform: translateX(25px);
-    z-index: 1;
 }
