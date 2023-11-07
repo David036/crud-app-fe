@@ -9,6 +9,7 @@ export const signup = async (email: string, password: string) => {
     const requestBody = {
       email,
       password,
+      phoneNumber: 123,
     };
     return await axiosInstance.post(`${url}signup`, requestBody);
   } catch (error) {
