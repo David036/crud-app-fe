@@ -1,7 +1,8 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
+import env from "../utils/constants/env";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:8000/",
+  baseURL: env.apiUrl,
   timeout: 10000,
 });
 
@@ -35,9 +36,7 @@ axiosInstance.interceptors.response.use(
     ) {
       originalRequest._isRetry = true;
       try {
-        const response = await axiosInstance.get(
-          "http://localhost:8000/auth/refresh"
-        );
+        const response = await axiosInstance.get(`${env.apiUrl}auth/refresh`);
         localStorage.setItem("accessToken", response?.data?.accessToken);
         return axiosInstance.request(originalRequest);
       } catch (e) {
