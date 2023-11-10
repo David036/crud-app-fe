@@ -3,7 +3,7 @@ import { UserTypes } from "../usersTable/types";
 export interface DeleteModalProps {
   deleteModalIsVisible: boolean;
   onClose: () => void;
-  selectedUser: UserTypes;
-  getUsers: () => Promise<void>;
-  setCurrentPage: (page: number) => void;
+  selectedUserId: string;
+  deleteFunction: (id: string) => void;
+  selectedUserTitle: string;
 }

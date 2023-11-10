@@ -4,12 +4,18 @@ import Search from "antd/es/input/Search";
 import EditModal from "../editModal";
 import DeleteModal from "../deleteModal";
 import Table from "../../shared/table";
-import { searchUsers } from "../../../services/userService";
+import {
+  removeUser,
+  searchUsers,
+  updateUser,
+} from "../../../services/userService";
 import editIcon from "../../../public/icons/edit.svg";
 import removeIcon from "../../../public/icons/remove.svg";
 import { UserTableProps, UserTypes } from "./types";
 
 import styles from "./usersTable.module.scss";
+import openNotification from "../../shared/notification";
+import { NotificationTypes } from "../../shared/notification/types";
 
 export default function UsersTable({
   users,
@@ -27,6 +33,27 @@ export default function UsersTable({
   const [editModalIsVisible, setEditModalIsVisible] = useState<boolean>(false);
   const [deleteModalIsVisible, setDeleteModalIsVisible] =
     useState<boolean>(false);
+  const [newName, setNewName] = useState(selectedUser?.name);
+  const [newSurname, setNewSurname] = useState(selectedUser?.surname);
+  const [newAge, setNewAge] = useState(`${selectedUser?.age}`);
+
+  const editUser = async () => {
+    if (selectedUser) {
+      const editedUser = {
+        id: selectedUser.id,
+        name: newName ?? selectedUser.name,
+        surname: newSurname ?? selectedUser.surname,
+        age: parseInt(newAge),
+      };
+
+      if (editedUser) {
+        await updateUser(editedUser);
+        setEditModalIsVisible(false);
+        setSelectedUser(null);
+        getUsers();
+      }
+    }
+  };
 
   const handleEdit = (item: UserTypes) => {
     setSelectedUser(item);
@@ -40,7 +67,6 @@ export default function UsersTable({
 
   const handleSearch = async () => {
     const searchedUsers = await searchUsers(searchValue, limit, currentPage);
-
     if (searchedUsers?.data) {
       setUsers(searchedUsers.data);
       setCountOfPage(searchedUsers.count);
@@ -86,6 +112,43 @@ export default function UsersTable({
     },
   ];
 
+  let newValues;
+
+  if (selectedUser) {
+    newValues = [
+      {
+        value: selectedUser.name,
+        changeValue: setNewName,
+        type: "string",
+      },
+      {
+        value: selectedUser.surname,
+        changeValue: setNewSurname,
+        type: "string",
+      },
+      {
+        value: selectedUser.age,
+        changeValue: setNewAge,
+        type: "number",
+      },
+    ];
+  }
+
+  const deleteUser = async (id: string) => {
+    const removedUser = await removeUser(id);
+
+    if (removedUser?.data.success) {
+      openNotification({
+        type: NotificationTypes.SUCCESS,
+        message: `User "${removedUser.data.data.name} ${removedUser.data.data.surname}" was successfully deleted`,
+        description: "",
+      });
+      setDeleteModalIsVisible(false);
+      setCurrentPage(1);
+      getUsers();
+    }
+  };
+
   return (
     <div className={styles.usersTable}>
       <Search
@@ -98,25 +161,25 @@ export default function UsersTable({
       />
       {selectedUser && (
         <EditModal
+          newValues={newValues}
+          editFunction={editUser}
           key={selectedUser.id}
           editModalIsVisible={editModalIsVisible}
           onClose={() => {
             setEditModalIsVisible(false);
             setSelectedUser(null);
           }}
-          getUsers={getUsers}
-          selectedUser={selectedUser}
         />
       )}
       {selectedUser && (
         <DeleteModal
-          setCurrentPage={setCurrentPage}
+          selectedUserId={selectedUser.id}
+          selectedUserTitle={selectedUser.name}
+          deleteFunction={deleteUser}
           deleteModalIsVisible={deleteModalIsVisible}
           onClose={() => {
             setDeleteModalIsVisible(false);
           }}
-          selectedUser={selectedUser}
-          getUsers={getUsers}
         />
       )}
       <Table
