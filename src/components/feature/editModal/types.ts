@@ -1,8 +1,8 @@
 import { UserTypes } from "../usersTable/types";
 
 export interface EditModalProps {
-  selectedUser: UserTypes;
-  getUsers: () => Promise<void>;
+  newValues: any;
   editModalIsVisible: boolean;
   onClose: () => void;
+  editFunction: () => void;
 }

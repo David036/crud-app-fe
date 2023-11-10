@@ -3,12 +3,13 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./components/feature/home";
 import LoginPage from "./components/feature/login";
 import SignupPage from "./components/feature/signup";
-import Products from "./components/feature/products";
+// import Products from "./components/feature/products";
 import Users from "./components/feature/users";
 import { AuthContext } from "./context/auth/context";
 import { getCurrentUser } from "./services/authService";
 
 import "../src/styles/global.scss";
+import Products from "./components/feature/products";
 
 function App() {
   const [isAuth, setIsAuth] = useState<boolean>(false);
@@ -40,7 +41,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}>
             <Route path="products" element={<Products />} />
-            <Route path="users" element={<Users />} />
+            <Route path="/" element={<Users />} />
           </Route>
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
