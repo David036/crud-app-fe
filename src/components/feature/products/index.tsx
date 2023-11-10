@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ProductsInputs from "../productsInputs";
 import {
   createProduct,
   getAllProducts,
@@ -10,11 +9,12 @@ import {
 import openNotification from "../../shared/notification";
 import { NotificationTypes } from "../../shared/notification/types";
 import ProductCards from "../productCards";
-import { ProductTypes } from "./types";
+import CreateProductModal from "../createModal";
 import EditModal from "../editModal";
 import DeleteModal from "../deleteModal";
-import { Pagination, PaginationProps } from "antd";
+import { Button, Pagination, PaginationProps } from "antd";
 import Search from "antd/es/input/Search";
+import { ProductTypes } from "./types";
 
 import styles from "./products.module.scss";
 
@@ -24,9 +24,11 @@ export default function Products() {
   const [price, setPrice] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchValue, setSearchValue] = useState<string>("");
-  const [limit, setLimit] = useState<number>(6);
+  const [limit, setLimit] = useState<number>(8);
   const [countOfPage, setCountOfPage] = useState<number>(0);
   const [editModalIsVisible, setEditModalIsVisible] = useState<boolean>(false);
+  const [createModalIsVisible, setCreateModalIsVisible] =
+    useState<boolean>(false);
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState<ProductTypes | null>(
     null
@@ -164,6 +166,22 @@ export default function Products() {
           }}
         />
       )}
+      <CreateProductModal
+        title={title}
+        description={description}
+        price={price}
+        handleCreate={handleCreate}
+        setPrice={setPrice}
+        setDescription={setDescription}
+        setTitle={setTitle}
+        createModalIsVisible={createModalIsVisible}
+        onClose={() => {
+          setCreateModalIsVisible(false);
+          setTitle("");
+          setDescription("");
+          setPrice("");
+        }}
+      />
       {selectedProduct && (
         <DeleteModal
           selectedUserId={selectedProduct.id}
@@ -175,20 +193,24 @@ export default function Products() {
           }}
         />
       )}
-      <ProductsInputs
-        handleCreate={handleCreate}
-        setPrice={setPrice}
-        setDescription={setDescription}
-        setTitle={setTitle}
-      />
-      <Search
-        onChange={(e) => setSearchValue(e.target.value)}
-        placeholder="input search text"
-        allowClear={false}
-        enterButton="Search"
-        size="large"
-        onSearch={handleSearch}
-      />
+
+      <div className={styles.topSection}>
+        <Button
+          onClick={() => {
+            setCreateModalIsVisible(true);
+          }}
+        >
+          Add Product
+        </Button>
+        <Search
+          onChange={(e) => setSearchValue(e.target.value)}
+          placeholder="input search text"
+          allowClear={false}
+          enterButton="Search"
+          size="large"
+          onSearch={handleSearch}
+        />
+      </div>
       <ProductCards
         handleDelete={handleDelete}
         handleEdit={handleEdit}
